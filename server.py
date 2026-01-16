@@ -41,7 +41,7 @@ def get_latest_stories() -> list[dict]:
 
 @mcp.tool
 def search_stories(keywords: list[str]) -> list[dict]:
-    """Searches title and description for an array of keywords."""
+    """Searches superhero and alias for an array of keywords."""
     if not keywords:
         return []
 
@@ -53,12 +53,12 @@ def search_stories(keywords: list[str]) -> list[dict]:
         # For each keyword, create a condition to search both title and description.
         for keyword in keywords:
             conditions.append(
-                f"(title LIKE '%{keyword}%' OR description LIKE '%{keyword}%')"
+                f"(superhero LIKE '%{keyword}%' OR alias LIKE '%{keyword}%')"
             )
 
         # Join all the individual conditions with "OR".
-        # Example: "WHERE (title LIKE ? OR description LIKE ?) OR (title LIKE ? OR description LIKE ?)"
-        query = "SELECT * FROM news WHERE " + " OR ".join(conditions)
+        # Example: "WHERE (superhero LIKE ? OR alias LIKE ?) OR (superhero LIKE ? OR alias LIKE ?)"
+        query = "SELECT * FROM heroes WHERE " + " OR ".join(conditions)
 
         cursor.execute(query)
         rows = cursor.fetchall()
