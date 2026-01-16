@@ -31,7 +31,7 @@ def get_latest_stories() -> list[dict]:
         cursor = conn.cursor()
 
         # SQL query to select all columns for 5 superheroes in alpha order.
-        cursor.execute("SELECT * FROM heroes ORDER BY superhero DESC LIMIT 5")
+        cursor.execute("SELECT * FROM heroes ORDER BY superhero")
         rows = cursor.fetchall()
 
         # Convert each row into a python dictionary (object) to support a JSON result.
