@@ -18,7 +18,7 @@ async def main():
 
         # Test search_stories tool
         print("\n--- Testing search_stories ---")
-        keywords = ["battery", "math", "policy"]
+        keywords = ["superman", "batman", "hal jordan"]
         try:
             result = await client.call_tool(
                 "search_stories", arguments={"keywords": keywords}
