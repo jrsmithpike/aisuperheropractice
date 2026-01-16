@@ -6,8 +6,8 @@ import os
 def create_database():
     # Paths
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(base_dir, "ai_news.csv")
-    db_path = os.path.join(base_dir, "ai_news.db")
+    csv_path = os.path.join(base_dir, "superheroes.csv")
+    db_path = os.path.join(base_dir, "superheroes.db")
 
     # Connect to database
     conn = sqlite3.connect(db_path)
@@ -16,14 +16,12 @@ def create_database():
     # Create table
     cursor.execute(
         """
-        CREATE TABLE IF NOT EXISTS news (
+        CREATE TABLE IF NOT EXISTS heroes (
             id INTEGER PRIMARY KEY,
-            release_date TEXT NOT NULL,
-            title TEXT NOT NULL,
-            source TEXT NOT NULL,
-            link TEXT NOT NULL,
-            tags TEXT NOT NULL,
-            description TEXT NOT NULL
+            superhero TEXT NOT NULL,
+            alias TEXT NOT NULL,
+            superpowers TEXT NOT NULL,
+            location TEXT NOT NULL
         )
     """
     )
@@ -37,17 +35,15 @@ def create_database():
                 to_db.append(
                     (
                         int(row["id"]),
-                        row["release_date"],
-                        row["title"],
-                        row["source"],
-                        row["link"],
-                        row["tags"],
-                        row["description"],
+                        row["superhero"],
+                        row["alias"],
+                        row["superpowers"],
+                        row["location"],
                     )
                 )
 
         cursor.executemany(
-            "INSERT OR REPLACE INTO news (id, release_date, title, source, link, tags, description) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT OR REPLACE INTO heroes (id, superhero, alias, superpowers, location) VALUES (?, ?, ?, ?, ?, ?, ?)",
             to_db,
         )
         conn.commit()
