@@ -26,7 +26,7 @@ def get_db_connection():
 
 @mcp.tool
 def get_latest_stories() -> list[dict]:
-    """Returns the latest 5 stories based on release date."""
+    """Returns info about 5 superheroes alphabetically."""
     with get_db_connection() as conn:
         cursor = conn.cursor()
 
