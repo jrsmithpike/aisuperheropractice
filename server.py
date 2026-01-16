@@ -5,7 +5,7 @@ import os
 mcp = FastMCP("AI and Robotics News Server")
 
 # Path to the database file.
-DB_PATH = "database/ai_news.db"
+DB_PATH = "database/superheroes.db"
 
 
 # --- Database Helper Functions ---
