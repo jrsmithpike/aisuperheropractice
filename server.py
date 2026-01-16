@@ -2,7 +2,7 @@ from fastmcp import FastMCP
 import sqlite3
 import os
 
-mcp = FastMCP("AI and Robotics News Server")
+mcp = FastMCP("Superhero Server")
 
 # Path to the database file.
 DB_PATH = "database/superheroes.db"
