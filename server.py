@@ -30,8 +30,8 @@ def get_latest_stories() -> list[dict]:
     with get_db_connection() as conn:
         cursor = conn.cursor()
 
-        # SQL query to select all columns from the 5 newest stories.
-        cursor.execute("SELECT * FROM news ORDER BY release_date DESC LIMIT 5")
+        # SQL query to select all columns for 5 superheroes in alpha order.
+        cursor.execute("SELECT * FROM heroes ORDER BY superhero DESC LIMIT 5")
         rows = cursor.fetchall()
 
         # Convert each row into a python dictionary (object) to support a JSON result.
