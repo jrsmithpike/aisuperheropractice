@@ -25,12 +25,12 @@ def get_db_connection():
 
 
 @mcp.tool
-def get_latest_stories() -> list[dict]:
-    """Returns info about 5 superheroes alphabetically."""
+def get_superheroes() -> list[dict]:
+    """Returns info about all superheroes alphabetically."""
     with get_db_connection() as conn:
         cursor = conn.cursor()
 
-        # SQL query to select all columns for 5 superheroes in alpha order.
+        # SQL query to select all columns for the superheroes in alpha order.
         cursor.execute("SELECT * FROM heroes ORDER BY superhero")
         rows = cursor.fetchall()
 
@@ -38,10 +38,25 @@ def get_latest_stories() -> list[dict]:
         list = [dict(row) for row in rows]
         return list
 
+@mcp.tool
+def get_superhero_info() -> list[dict]:
+    """Returns specific requested info about a superhero."""
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+
+         # For each keyword, create a condition to search superhero.
+        for keyword in keywords:
+            conditions.append(
+                f"(superhero LIKE '%{keyword}%')"
+            )
+
+        # Convert each row into a python dictionary (object) to support a JSON result.
+        list = [dict(row) for row in rows]
+        return list
 
 @mcp.tool
-def search_stories(keywords: list[str]) -> list[dict]:
-    """Searches superhero and alias for an array of keywords."""
+def search_superheroes(keywords: list[str]) -> list[dict]:
+    """Searches superhero based on alias."""
     if not keywords:
         return []
 
@@ -50,14 +65,14 @@ def search_stories(keywords: list[str]) -> list[dict]:
 
         conditions = []
 
-        # For each keyword, create a condition to search both title and description.
+        # For each keyword, create a condition to search alias.
         for keyword in keywords:
             conditions.append(
-                f"(superhero LIKE '%{keyword}%' OR alias LIKE '%{keyword}%')"
+                f"(alias LIKE '%{keyword}%')"
             )
 
         # Join all the individual conditions with "OR".
-        # Example: "WHERE (superhero LIKE ? OR alias LIKE ?) OR (superhero LIKE ? OR alias LIKE ?)"
+        # Example: "WHERE (alias LIKE ?) OR (alias LIKE ?)"
         query = "SELECT * FROM heroes WHERE " + " OR ".join(conditions)
 
         cursor.execute(query)
